@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Padding -->
+    <dimen name="default_padding">10dp</dimen>
+    <dimen name="image_banner_avatar_padding">15dp</dimen>
+    <dimen name="title_padding">5dp</dimen>
+
+    <!-- Margin -->
+    <dimen name="text_progress_top_margin">20dp</dimen>
+    <dimen name="label_top_margin">8dp</dimen>
+
+    <!-- TextView -->
+    <dimen name="text_small_x_size">10sp</dimen>
+    <dimen name="text_normal_size">14sp</dimen>
+    <dimen name="text_large_size">18sp</dimen>
+    <dimen name="text_large_x_size">22sp</dimen>
+
+    <!-- ImageView -->
+    <dimen name="image_size_avatar_thumb">32dp</dimen>
+    <dimen name="image_size_avatar_banner">72dp</dimen>
+
+    <!-- Progress -->
+    <dimen name="progress_size">80dp</dimen>
+</resources>

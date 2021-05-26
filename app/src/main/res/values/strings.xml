@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">GitHubApiApp</string>
+
+    <!-- Content description -->
+    <string name="content_description_img_avatar">GitHub profile image</string>
+    <string name="content_description_img_locked">Profile is locked</string>
+    <string name="content_description_img_unlocked">Profile is unlocked</string>
+
+    <!-- Repository list -->
+    <string name="waiting_for_type">Aguardando digitação…</string>
+    <string name="hint_query">Informe uma query…</string>
+    <string name="loading_page">Carregando a página %s</string>
+</resources>

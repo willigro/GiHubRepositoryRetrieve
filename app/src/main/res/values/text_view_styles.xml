@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TextViewBase">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_normal_size</item>
+    </style>
+
+    <style name="TextViewTitle" parent="TextViewBase">
+        <item name="android:textSize">@dimen/text_large_x_size</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingTop">@dimen/title_padding</item>
+        <item name="android:paddingBottom">@dimen/title_padding</item>
+    </style>
+
+    <style name="TextViewSubtitle" parent="TextViewBase">
+        <item name="android:textSize">@dimen/text_normal_size</item>
+        <item name="android:textStyle">italic</item>
+    </style>
+
+    <style name="TextViewLabel" parent="TextViewBase">
+        <item name="android:textSize">@dimen/text_normal_size</item>
+        <item name="android:layout_marginTop">@dimen/label_top_margin</item>
+    </style>
+
+    <style name="TextViewLabelDate" parent="TextViewLabel">
+        <item name="android:textColor">@color/date_color</item>
+    </style>
+
+    <style name="TextViewInfo" parent="TextViewBase">
+        <item name="android:textSize">@dimen/text_small_x_size</item>
+    </style>
+
+    <style name="TextViewProgress" parent="TextViewBase">
+        <item name="android:textSize">@dimen/text_large_x_size</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginTop">@dimen/text_progress_top_margin</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+</resources>

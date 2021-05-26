@@ -1,0 +1,7 @@
+ext {
+    paletteVersion = "1.0.0"
+
+    paletteDependencies = [
+            palette: "androidx.palette:palette-ktx:${paletteVersion}"
+    ]
+}

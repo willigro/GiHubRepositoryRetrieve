@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="stub_repository_name">Bigger Name, name bigger, testing the space that its field will fill</string>
+    <string name="stub_repository_name_small">Small name</string>
+    <string name="stub_repository_full_name">Full name</string>
+    <string name="stub_repository_description">Description</string>
+    <string name="stub_repository_created_at" tools:ignore="TypographyDashes">2017-02-16T02:10:13Z</string>
+    <string name="stub_repository_stars">10</string>
+</resources>
