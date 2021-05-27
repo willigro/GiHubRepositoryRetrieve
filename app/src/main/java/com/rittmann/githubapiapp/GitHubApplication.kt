@@ -2,14 +2,13 @@ package com.rittmann.githubapiapp
 
 import android.app.Application
 import android.content.Context
-import androidx.lifecycle.ViewModelProvider
 import com.rittmann.githubapiapp.model.local.room.AppDatabase
 import com.rittmann.githubapiapp.model.local.room.RepositoryDao
 import com.rittmann.githubapiapp.model.remote.GitHubRepositoryApi
 import com.rittmann.githubapiapp.repository.GitHubRepository
 import com.rittmann.githubapiapp.repository.GitHubRepositoryImpl
 import com.rittmann.githubapiapp.ui.list.MainViewModel
-import com.rittmann.githubapiapp.ui.list.ViewModelFactory
+import com.rittmann.githubapiapp.ui.list.MainViewModelFactory
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.erased.*
@@ -54,8 +53,8 @@ class GitHubApplication : Application(), KodeinAware {
     }
 
     private fun Kodein.MainBuilder.bindViewModelFactories() {
-//        bind() from provider { MainViewModelFactory(instance()) }
-        bind<ViewModelProvider.Factory>() with singleton { ViewModelFactory(instance()) }
+        bind() from provider { MainViewModelFactory(instance()) }
+//        bind<ViewModelProvider.Factory>() with singleton { ViewModelFactory(instance()) }
     }
 
     private fun Kodein.MainBuilder.bindViewModels() {

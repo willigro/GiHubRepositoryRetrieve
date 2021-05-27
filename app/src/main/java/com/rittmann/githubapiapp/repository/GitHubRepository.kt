@@ -1,5 +1,6 @@
 package com.rittmann.githubapiapp.repository
 
+import com.rittmann.androidtools.log.log
 import com.rittmann.githubapiapp.model.basic.Repository
 import com.rittmann.githubapiapp.model.local.room.RepositoryDao
 import com.rittmann.githubapiapp.model.remote.GitHubRepositoryApi
@@ -26,11 +27,13 @@ class GitHubRepositoryImpl(
         name: String,
         callback: (PageInfo.PageResult<Repository>) -> Unit
     ) {
+        "fetchRepositories".log()
         try {
             val result =
                 gitHubRepositoryApi.getRepositories(name, pageInfo.page, pageInfo.size).execute()
 
             if (result.isSuccessful) {
+                "isSuccessful".log()
                 if (result.body() == null || result.body()?.items.isNullOrEmpty()) {
                     callback(PageInfo.PageResult(arrayListOf(), true))
                     return
@@ -43,11 +46,14 @@ class GitHubRepositoryImpl(
                 repositoryDao.insertAll(items)
                 callback(PageInfo.PageResult(items))
             } else {
+                "is not successful".log()
                 loadFromDao(name, pageInfo, callback)
             }
         } catch (e: HttpException) {
+            e.message().log()
             loadFromDao(name, pageInfo, callback)
         } catch (e: Throwable) {
+            "throwable ${e.message}".log()
             loadFromDao(name, pageInfo, callback)
         }
     }

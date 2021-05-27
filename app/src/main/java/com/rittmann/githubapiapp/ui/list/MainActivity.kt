@@ -3,17 +3,19 @@ package com.rittmann.githubapiapp.ui.list
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.rittmann.androidtools.log.log
 import com.rittmann.githubapiapp.R
 import com.rittmann.githubapiapp.databinding.ActivityMainBinding
-import com.rittmann.githubapiapp.extensions.viewModelProv
 import com.rittmann.githubapiapp.ui.base.BaseBindingActivity
 import com.rittmann.githubapiapp.ui.details.DetailsActivity
 import com.rittmann.githubapiapp.utils.PagingUtils
 import com.rittmann.widgets.extensions.gone
 import com.rittmann.widgets.extensions.visible
 import com.rittmann.widgets.progress.ProgressVisibleControl
+import org.kodein.di.erased.instance
 import java.util.*
 
 class MainActivity : BaseBindingActivity<ActivityMainBinding>(R.layout.activity_main) {
@@ -23,7 +25,9 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(R.layout.activity_
     private lateinit var editTextSearch: EditTextSearch
     lateinit var repositoryAdapter: RepositoryAdapter
 
-    private val viewModel: MainViewModel by viewModelProv()
+    //     val viewModel: MainViewModel by viewModelProv()
+    private val factory: MainViewModelFactory by instance()
+    private val viewModel: MainViewModel by viewModels(factoryProducer = { factory })
 
     private var enableRefresh: MutableLiveData<Boolean> = MutableLiveData(true)
 
@@ -38,6 +42,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(R.layout.activity_
     private fun initObservers() {
         viewModel.apply {
             repositories.observe(this@MainActivity, { items ->
+                "$repositoryAdapter".log()
                 items?.also { repositoryAdapter.addData(items) }
                 enableRefresh.value = true
             })

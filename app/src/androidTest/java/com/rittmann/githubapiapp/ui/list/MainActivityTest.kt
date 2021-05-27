@@ -1,13 +1,14 @@
 package com.rittmann.githubapiapp.ui.list
 
+import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.IdlingRegistry
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.filters.LargeTest
 import com.rittmann.androidtools.log.log
 import com.rittmann.githubapiapp.R
-import com.rittmann.githubapiapp.asApp
 import com.rittmann.githubapiapp.model.basic.Repository
 import com.rittmann.githubapiapp.model.local.room.AppDatabase
 import com.rittmann.githubapiapp.model.mock.Mock
-import com.rittmann.githubapiapp.repository.GitHubRepository
 import com.rittmann.githubapiapp.support.ActivityTest
 import com.rittmann.githubapiapp.support.ExpressoUtil.checkSizeFromRecycler
 import com.rittmann.githubapiapp.support.ExpressoUtil.putValue
@@ -15,11 +16,13 @@ import com.rittmann.githubapiapp.utils.EspressoIdlingResource
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
-import org.kodein.di.Kodein
-import org.kodein.di.erased.bind
-import org.kodein.di.erased.singleton
+import org.junit.runner.RunWith
 
+@LargeTest
+@RunWith(AndroidJUnit4::class)
 class MainActivityTest : ActivityTest() {
+
+    lateinit var scenario: ActivityScenario<MainActivity>
 
     @Before
     fun start() {
@@ -29,6 +32,7 @@ class MainActivityTest : ActivityTest() {
     @After
     fun finish() {
         IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
+        scenario.close()
     }
 
     @Test
@@ -36,68 +40,12 @@ class MainActivityTest : ActivityTest() {
         /*
         * Open screen
         * */
-        getActivity<MainActivity>()
+        scenario = getActivity()
 
         /*
         * Test
         * */
         checkSizeFromRecycler(R.id.recycler, 0)
-    }
-
-    @Test
-    fun showTheEmptyList_WhenThereAreNotItems_QueryAndroid_GettingFromMock() {
-        /*
-        * Mock Repository
-        * */
-        mockTheResult {
-            PageInfo.PageResult()
-        }
-
-        /*
-        * Open screen
-        * */
-        getActivity<MainActivity>()
-
-        /*
-        * Test
-        * */
-        checkSizeFromRecycler(R.id.recycler, 0)
-
-        putValue(R.id.edit_query, "Android")
-
-        checkSizeFromRecycler(R.id.recycler, 0)
-    }
-
-    @Test
-    fun showTheFiveMockedItems_WhenLoadSomeMockedItems_QueryAndroid_GettingFromMock() {
-        /*
-        * Mock Repository
-        * */
-        mockTheResult {
-            val items = arrayListOf<Repository>()
-
-            for (i in 0 until 5) {
-                items.add(Mock.getRepository())
-            }
-
-            PageInfo.PageResult(items)
-        }
-
-        /*
-        * Open screen
-        * */
-        getActivity<MainActivity>()
-
-        /*
-        * Test
-        * */
-        checkSizeFromRecycler(R.id.recycler, 0)
-
-        putValue(R.id.edit_query, "Android")
-
-        waitRecyclerBePopulated()
-
-        checkSizeFromRecycler(R.id.recycler, 5)
     }
 
     @Test
@@ -120,14 +68,10 @@ class MainActivityTest : ActivityTest() {
 
         dao?.insertAll(items)
 
-        mockTheResult {
-            PageInfo.PageResult(dao?.getAll(query, 1) ?: arrayListOf())
-        }
-
         /*
         * Open screen
         * */
-        getActivity<MainActivity>()
+        scenario = getActivity()
 
         /*
         * Test
@@ -148,7 +92,7 @@ class MainActivityTest : ActivityTest() {
         /*
         * Open screen
         * */
-        getActivity<MainActivity>()
+        scenario = getActivity()
 
         /*
         * Test
@@ -168,27 +112,5 @@ class MainActivityTest : ActivityTest() {
      * */
     private fun waitRecyclerBePopulated() {
         Thread.sleep(1000L)
-    }
-
-    private fun mockTheResult(block: () -> PageInfo.PageResult<Repository>) {
-        val repository = object : GitHubRepository {
-            override fun fetchRepositories(
-                pageInfo: PageInfo<Repository>,
-                name: String,
-                callback: (PageInfo.PageResult<Repository>) -> Unit
-            ) {
-                callback(
-                    block()
-                )
-            }
-
-            override suspend fun deleteAll() {
-            }
-        }
-
-        val testModule = Kodein.Module(name = "test", allowSilentOverride = true) {
-            bind<GitHubRepository>() with singleton { repository }
-        }
-        targetContext.asApp().testModule = testModule
     }
 }
