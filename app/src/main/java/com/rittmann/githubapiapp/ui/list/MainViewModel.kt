@@ -10,13 +10,13 @@ import com.rittmann.githubapiapp.model.basic.Repository
 import com.rittmann.githubapiapp.repository.GitHubRepository
 import com.rittmann.githubapiapp.utils.EspressoIdlingResource
 
-//@Suppress("UNCHECKED_CAST")
-//class ViewModelFactory(private val injector: ViewModel) : ViewModelProvider.Factory {
-//
-//    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-//        return injector as T? ?: modelClass.newInstance()
-//    }
-//}
+@Suppress("UNCHECKED_CAST")
+class ViewModelFactory(private val injector: ViewModel) : ViewModelProvider.Factory {
+
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        return injector as T? ?: modelClass.newInstance()
+    }
+}
 
 @Suppress("UNCHECKED_CAST")
 class MainViewModelFactory(private val repository: GitHubRepository) :

@@ -6,9 +6,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import com.rittmann.androidtools.log.log
 import com.rittmann.githubapiapp.R
-import com.rittmann.githubapiapp.model.basic.Repository
-import com.rittmann.githubapiapp.model.local.room.AppDatabase
-import com.rittmann.githubapiapp.model.mock.Mock
 import com.rittmann.githubapiapp.support.ActivityTest
 import com.rittmann.githubapiapp.support.ExpressoUtil.checkSizeFromRecycler
 import com.rittmann.githubapiapp.support.ExpressoUtil.putValue
@@ -46,42 +43,6 @@ class MainActivityTest : ActivityTest() {
         * Test
         * */
         checkSizeFromRecycler(R.id.recycler, 0)
-    }
-
-    @Test
-    fun showPageOne_WhenRequestTheFirstPage_QueryJava_GettingFromDao_Offline() {
-        /*
-        * Mock Repository
-        * */
-        val query = "Java"
-        val dao = AppDatabase.getDatabase(context)?.getRepositoryDao()
-        dao?.clearAll()
-        val items = arrayListOf<Repository>()
-
-        for (i in 0 until PageInfo.DEFAULT_PAGE_SIZE) {
-            items.add(Mock.getRepository(id = "$i 1", name = query, page = 1))
-        }
-
-        for (i in 0 until PageInfo.DEFAULT_PAGE_SIZE) {
-            items.add(Mock.getRepository(id = "$i 2", name = query, page = 2))
-        }
-
-        dao?.insertAll(items)
-
-        /*
-        * Open screen
-        * */
-        scenario = getActivity()
-
-        /*
-        * Test
-        * */
-        checkSizeFromRecycler(R.id.recycler, 0)
-
-        putValue(R.id.edit_query, query)
-        waitRecyclerBePopulated()
-        checkSizeFromRecycler(R.id.recycler, PageInfo.DEFAULT_PAGE_SIZE)
-        "showPageOne_WhenRequestTheFirstPage_QueryJava_GettingFromDao_Offline finished well".log()
     }
 
     /**

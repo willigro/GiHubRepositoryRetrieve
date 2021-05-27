@@ -8,7 +8,7 @@ import com.rittmann.githubapiapp.model.remote.GitHubRepositoryApi
 import com.rittmann.githubapiapp.repository.GitHubRepository
 import com.rittmann.githubapiapp.repository.GitHubRepositoryImpl
 import com.rittmann.githubapiapp.ui.list.MainViewModel
-import com.rittmann.githubapiapp.ui.list.MainViewModelFactory
+import com.rittmann.githubapiapp.ui.list.ViewModelFactory
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.erased.*
@@ -53,8 +53,8 @@ class GitHubApplication : Application(), KodeinAware {
     }
 
     private fun Kodein.MainBuilder.bindViewModelFactories() {
-        bind() from provider { MainViewModelFactory(instance()) }
-//        bind<ViewModelProvider.Factory>() with singleton { ViewModelFactory(instance()) }
+//        bind() from provider { MainViewModelFactory(instance()) }
+        bind() from provider { ViewModelFactory(instance()) }
     }
 
     private fun Kodein.MainBuilder.bindViewModels() {
