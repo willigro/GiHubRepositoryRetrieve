@@ -40,9 +40,6 @@ class MainActivityOverrideRepositoryTest : ActivityTest() {
     fun finish() {
         testing.log("testing value in finish ")
         IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
-        scenario.onActivity {
-            it.viewModelStore.clear()
-        }
         scenario.close()
     }
 

@@ -99,7 +99,7 @@ dependencies {
     implementation 'org.kodein.di:kodein-di-framework-android-support:6.2.0'
 
     // Others
-    implementation 'com.github.willigro:RobbieAndroidUtil:alpha-1.2.6.1'
+    implementation 'com.github.willigro:RobbieAndroidUtil:alpha-1.2.6.2'
 
     // Binding
     kapt 'com.android.databinding:compiler:3.1.4'
